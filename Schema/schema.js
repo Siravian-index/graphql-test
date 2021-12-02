@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql } = require('apollo-server')
 
 exports.typeDefs = gql`
   type Query {
@@ -17,6 +17,7 @@ exports.typeDefs = gql`
     price: Float!
     onSale: Boolean!
     category: Category
+    reviews: [Review!]!
   }
 
   type Category {
@@ -24,4 +25,13 @@ exports.typeDefs = gql`
     name: String!
     products: [Product!]!
   }
-`;
+
+  type Review {
+    id: ID!
+    date: String!
+    title: String!
+    comment: String!
+    rating: Int!
+    # productId: String!
+  }
+`
