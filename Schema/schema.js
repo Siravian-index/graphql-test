@@ -23,7 +23,7 @@ exports.typeDefs = gql`
   type Category {
     id: ID!
     name: String!
-    products: [Product!]!
+    products(filter: ProductsFilterInput): [Product!]!
   }
 
   type Review {
@@ -32,7 +32,7 @@ exports.typeDefs = gql`
     title: String!
     comment: String!
     rating: Int!
-    # productId: String!
+    productId: String!
   }
 
   # input

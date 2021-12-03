@@ -1,9 +1,12 @@
 exports.Query = {
-  products: (parent, { onSale }, { products }) => {
-    if (onSale) {
-      return products.filter((p) => p.onSale)
+  products: (parent, { filter }, { products }) => {
+    let filteredProducts = products
+    if (filter) {
+      if (filter.onSale) {
+        filteredProducts = filteredProducts.filter((p) => p.onSale)
+      }
     }
-    return products
+    return filteredProducts
   },
   product: (parent, { id }, { products }) => products.find((product) => product.id === id),
 
