@@ -9,11 +9,10 @@ exports.Query = {
         let threshold = filter.avgRating
         filteredProducts = filteredProducts.filter((product) => {
           const productReviews = reviews.filter((r) => r.productId === product.id)
-          let avg = 0
           let totalRating = productReviews.reduce((init, review) => {
             return init + Number(review.rating)
           }, 0)
-          avg = totalRating / productReviews.length
+          const avg = totalRating / productReviews.length
           return avg >= threshold
         })
       }
