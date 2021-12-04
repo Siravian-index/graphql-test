@@ -68,10 +68,32 @@ exports.Mutation = {
   },
   updateCategory: (parent, { id, input }, { db }) => {
     const index = db.categories.findIndex((c) => c.id === id)
-    db.categories[index] = {
-      ...input,
-      id,
+    if (index) {
+      db.categories[index] = {
+        ...db.categories[index],
+        ...input,
+      }
+      return db.categories[index]
     }
-    return db.categories[index]
+  },
+  updateProductInput: (parent, { id, input }, { db }) => {
+    const index = db.products.findIndex((p) => p.id === id)
+    if (index) {
+      db.products[index] = {
+        ...db.products[index],
+        ...input,
+      }
+      return db.products[index]
+    }
+  },
+  updateReview: (parent, { id, input }, { db }) => {
+    const index = db.reviews.findIndex((r) => r.id === id)
+    if (index) {
+      db.reviews[index] = {
+        ...db.reviews[index],
+        ...input,
+      }
+      return db.reviews[index]
+    }
   },
 }
