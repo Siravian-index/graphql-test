@@ -11,7 +11,7 @@ exports.Mutation = {
     return newCategory
   },
 
-  addProduct: (parent, { input }, { products, categories }) => {
+  addProduct: (parent, { input }, { products }) => {
     const { name, image, description, quantity, price, onSale, categoryId } = input
     const newProduct = {
       id: uuid(),
@@ -23,13 +23,10 @@ exports.Mutation = {
       onSale,
       categoryId,
     }
-    const checkCategoryId = categories.find((c) => c.id === categoryId)
-    if (checkCategoryId) {
-      products.push(newProduct)
-      return newProduct
-    }
+    products.push(newProduct)
+    return newProduct
   },
-  addReview: (parent, { input }, { reviews }) => {
+  addReview: (parent, { input }, { reviews, products }) => {
     const { date, title, comment, rating, productId } = input
     const newReview = {
       id: uuid(),
