@@ -39,5 +39,19 @@ exports.Mutation = {
     db.reviews.push(newReview)
     return newReview
   },
-  deleteCategory: (parent, { id }, { db }) => {},
+  deleteCategory: (parent, { id }, { db }) => {
+    db.categories = db.categories.filter((c) => c.id !== id)
+    db.products = db.products.map((p) => {
+      if (p.categoryId === id) {
+        const updatedProduct = {
+          ...p,
+          categoryId: null,
+        }
+        return updatedProduct
+      } else {
+        return p
+      }
+    })
+    return true
+  },
 }
