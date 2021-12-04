@@ -40,6 +40,9 @@ exports.Mutation = {
     return newReview
   },
   deleteCategory: (parent, { id }, { db }) => {
+    if (!id) {
+      return false
+    }
     db.categories = db.categories.filter((c) => c.id !== id)
     db.products = db.products.map((p) => {
       if (p.categoryId === id) {
@@ -52,6 +55,15 @@ exports.Mutation = {
         return p
       }
     })
+    return true
+  },
+  deleteProduct: (parent, { id }, { db }) => {
+    db.products = db.products.filter((p) => p.id !== id)
+    db.reviews = db.reviews.filter((r) => r.productId !== id)
+    return true
+  },
+  deleteReview: (parent, { id }, { db }) => {
+    db.reviews = db.reviews.filter((r) => r.id !== id)
     return true
   },
 }
