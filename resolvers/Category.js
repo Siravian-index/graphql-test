@@ -1,6 +1,6 @@
 exports.Category = {
-  products: ({ id }, { filter }, { products, reviews }) => {
-    const categoryProducts = products.filter((p) => p.categoryId === id)
+  products: ({ id }, { filter }, { db }) => {
+    const categoryProducts = db.products.filter((p) => p.categoryId === id)
     let filteredCategoryProducts = categoryProducts
     if (filter) {
       if (filter.onSale) {
@@ -9,7 +9,7 @@ exports.Category = {
       if (filter.avgRating >= 1 && filter.avgRating <= 5) {
         let threshold = filter.avgRating
         filteredCategoryProducts = filteredCategoryProducts.filter((product) => {
-          const productReviews = reviews.filter((r) => r.productId === product.id)
+          const productReviews = db.reviews.filter((r) => r.productId === product.id)
           let totalRating = productReviews.reduce((init, review) => {
             return init + Number(review.rating)
           }, 0)
